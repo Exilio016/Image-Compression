@@ -25,4 +25,4 @@ The images can be colored or not:
 * Read compressed image
 * Apply Huffman decompression
 * Aplly the Inverse FFT in the decompressed image
-* Save the new image
+* Show the image in the screen
