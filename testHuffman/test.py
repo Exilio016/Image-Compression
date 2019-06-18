@@ -1,34 +1,45 @@
 from Huffman import Huffman
-from Byte import Byte
 import imageio
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 
 fft = np.fft.fft2 # The fast fourier transform 
 ifft = np.fft.ifft2 # The inverse fast fourier transform
 shift = np.fft.fftshift # The shift method to recenter the image
 real = np.real # Method to get the real part of an array
 
-def compress(img):
+'''
+normalize(matrix, normal):
+    Normalizes a given 2d array with the given normal factor
+    Args:
+        * matrix - 2 dimentional array to be normalized
+        * normal - max value to be used as reference, the min value will be set as 0
+    Return value:
+        * normalized 2d array
+'''
+def normalize(img, normal = 255):
+    max = np.amax(img)
+    min = np.amin(img)
+    dif = max - min
+    img = np.uint8((img - min) * (normal / dif))
+    return img
+
+def decompress(file):
+    decompress = Huffman.read(file)
+    return normalize((real(ifft(decompress))).astype(int))
+
+
+def compress(imgName, outName):
+    img = imageio.imread(imgName)
     ft = np.asarray(fft(img))
-    #ft = real(ft).astype(int) # can be done with only the real part, but the quality loss is bigger
-
-    huffman = Huffman(ft)
-    #print(len(huffman))
-    code = huffman.code(ft)
-
-    byte = Byte(code)
-    byte.write('./test')
-    byte = Byte.read('./test')
-
-    decompress = huffman.decode(Byte.toString(byte.byte), (img.shape))
-
-    return (real(ifft(decompress))).astype(int)
+    # image stuff
+    huffman = Huffman(ft) # must generate the huffamn code first
+    huffman.write(ft, outName) # then encode it and write to a file
 
 if __name__ == "__main__":
     #imgName = input().rstrip()
-    imgName = './img.tiff'
-    img = imageio.imread(imgName)
-    
-    plt.imshow(compress(img))
+    imgName = 'img.tiff'
+    compress(imgName, 'test')    
+    plt.imshow(decompress('test')) 
     plt.show()
