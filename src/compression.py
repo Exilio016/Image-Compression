@@ -104,7 +104,7 @@ def print_help(progname):
   print('-c <INPUTFILE>\t\tcompress the <INPUTFILE> image')
   print('-o <OUTPUTFILE>\t\toutput file for the compression')
   print('-d <INPUTFILE>\t\tdecompress the <INPUTFILE> image')
-  print('-t <THRESHOLD>\t\tthreshold for the FFT compression, default value is 0.0001')
+  print('-t <THRESHOLD>\t\tthreshold for the FFT compression, default value is 0.01')
   sys.exit(0)
 
 if __name__ == "__main__":
@@ -116,7 +116,7 @@ if __name__ == "__main__":
   outputFile = None
   isCompress = False
   isDecompress = False
-  threshold = 0.0001
+  threshold = 0.01
 
   for opt, arg in opts:
     if(opt == '-c'):
