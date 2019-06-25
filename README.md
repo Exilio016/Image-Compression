@@ -4,7 +4,7 @@
 - Edson Yudi Toma
 
 ## Main Objective 
-The project aims to compress an image using Fourrier Transform and Huffman Compression.
+The project aims to compress an image using Fourier Transform and Huffman Compression.
 
 ## Input Images
 The input images can be any uncompressed image, we use in this project the "Standard" test images, an .tif image database located at http://imageprocessingplace.com/root_files_V3/image_databases.htm to test the algorithm.
