@@ -5,12 +5,26 @@ import getopt
 import struct
 from scipy.fftpack import fftn, ifftn, fftshift
 from PIL import Image
+import matplotlib.pyplot as plt
+from matplotlib.colors import LogNorm
 from Huffman import Huffman
 from Byte import Byte
+
+debug = False
+
 def compress(image, threshold, outputFile):
   fft_img = fftn(image) #Apply FFT to the original image
+  if debug:
+    plt.imshow(np.abs(fftshift(fft_img)), cmap='gray', norm=LogNorm(vmin=5))
+    plt.show()
+
   threshold = 0.1 * threshold * np.amax(np.abs(fft_img)) #Calculate the threashold
   comp_fft_img = np.where(np.abs(fft_img) > threshold, fft_img, 0) #Values below the threshold will be turn to 0
+  
+  if debug:
+    plt.imshow(np.abs(fftshift(comp_fft_img)), cmap='gray', norm=LogNorm(vmin=5))
+    plt.show()
+
 
   huffman = Huffman(comp_fft_img)
   huffman.write(comp_fft_img, outputFile)
@@ -109,7 +123,7 @@ def print_help(progname):
 
 if __name__ == "__main__":
   progname = sys.argv[0] #Get the program name
-  opts, args = getopt.getopt(sys.argv[1:], 'hc:o:d:t:') #Get program options
+  opts, args = getopt.getopt(sys.argv[1:], 'hc:o:d:t:s') #Get program options
 
   #Set default options, and auxiliar variables
   inputFile = None
@@ -132,6 +146,8 @@ if __name__ == "__main__":
       isDecompress = True
     elif(opt == '-h'):
       print_help(progname)
+    elif(opt == '-s'):
+      debug = True
 
   if isCompress:
     if outputFile is None:
