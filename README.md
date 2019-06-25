@@ -21,6 +21,8 @@ The images can be colored or not:
 * Apply Huffman compression in the FFT image
 * Save the compressed image
 
+OBS: The threshold value is a percentage of maximum value
+
 ## Algorithm Steps (Decompression)
 * Read compressed image
 * Apply Huffman decompression
