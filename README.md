@@ -34,7 +34,7 @@ The images can be colored or not:
 | lena_color_512.tif |  787,5 kB | 478,3 kB | 454,9 kB | 399,1 kB |
 | mandril_color.tif |  787,4 kB | 661,6 kB | 553,6 kB | 399,6 kB |
 
-The program was able to compress the image, but with a loss of quality. This is due to the fact that there are few values repeated after the FFT application, together with the need to save the huffman tree, it is necessary to cut many values (ie a high threshold) resulting in loss of quality.
+The program was able to compress the image, but with a loss of quality. This is due to the fact that there are few values repeated after the FFT application, together with the need to save the huffman tree, it is necessary to cut many values (ie a high threshold) to decress the image size, resulting in loss of quality.
 
 | Original Image | Threshold = 0.008 | Threshold = 0.01 | Threshold = 0.05 |
 | -------------- | ----------------- | ---------------- | ---------------- |
